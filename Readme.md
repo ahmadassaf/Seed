@@ -22,16 +22,12 @@ AIS itself currently has some problems which lead to the decision of not using i
 
 ## Architecture
 
-![Architecture Diagram](https://www.dropbox.com/s/akd76v99vnjvau5/SEED%20Archiecture.png?dl=1)
-
 The importer takes Dbpedia datasets (preferreably `.ttl ` files in Turtle RDF) and processes them into importable CSV files. These files, after being copied to the HANA instance, can be imported.
 The daily update service runs as a cron job on the HANA instance and is executed once per day. If it finds a delta which has not yet been imported it will download it, unpack it and insert / delete the changed triples via the `hdbsql`  command. You can read more about the daily updater in the next chapter.
 On the HANA server there are several `XSJS / XSJSLib`  files which provide the API below. These XSJS files interact via plain SQL queries with the HANA DB. 
 The prototype to test the API is using the SAPUI5 library. Currently it links to a SAPUI5 library on another server in the intranet – to be more reliable, the SAPUI5 library should be placed directly on the server. The SAPUI5 prototype sends HTTP GET / POST requests to the XSJS API. The data is returned as JSON.
 
 ## Tables Structure
-
-![Table Structure](https://www.dropbox.com/s/94vmpgvncju5b9j/SEED%20Tables%20Description.png?dl=1)
 
 - **ABSTRACTS**: Hosts the extended abstracts set – the abstract column has a fuzzy search index.
 - **TYPES**: Currently used for entity disambiguation. The column URI has a fuzzy search index, the column incomingno contains the number of incoming associations and the column order contains a number indicating how specific the type is (smaller means more specific).
