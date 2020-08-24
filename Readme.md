@@ -1,4 +1,4 @@
-#Semantic Enirichment of Enterprise Data (SEED)
+# Semantic Enirichment of Enterprise Data (SEED)
 
 The main goals of this thesis are:
 
@@ -20,7 +20,7 @@ AIS itself currently has some problems which lead to the decision of not using i
 
 • Performance of WIPE statements: after basic testing the overall performance was observed to be too slow and the AIS developer team was informed. As of yet, there is no solution to this problem.
 
-##Architecture
+## Architecture
 
 ![Architecture Diagram](https://www.dropbox.com/s/akd76v99vnjvau5/SEED%20Archiecture.png?dl=1)
 
@@ -29,7 +29,7 @@ The daily update service runs as a cron job on the HANA instance and is executed
 On the HANA server there are several `XSJS / XSJSLib`  files which provide the API below. These XSJS files interact via plain SQL queries with the HANA DB. 
 The prototype to test the API is using the SAPUI5 library. Currently it links to a SAPUI5 library on another server in the intranet – to be more reliable, the SAPUI5 library should be placed directly on the server. The SAPUI5 prototype sends HTTP GET / POST requests to the XSJS API. The data is returned as JSON.
 
-##Tables Structure
+## Tables Structure
 
 ![Table Structure](https://www.dropbox.com/s/94vmpgvncju5b9j/SEED%20Tables%20Description.png?dl=1)
 
@@ -97,12 +97,12 @@ If you want a cleaner dataset, use the `PROPERTIES`  table which contains the en
 
 For `ASSOCIATIONS`  vs `RAWASSOCIATIONS` , it is hard to tell. `Apple_Inc` . has more incoming associations in `RAWASSOCIATIONS` , but `Apple`  has less. Because further investigation was not possible, the prototype relies on the `ASSOCIATIONS`  table right now for the number of incoming associations (disambiguations) as well as the outgoing associations (enrichment).
 
-##API
+## API
 
-###Semantic Enrichment
+### Semantic Enrichment
 The API for semantic enrichment consists of two xsjs files: ```describe.xsjs``` and ```enrich.xsjs``` The API can be called with a simple GET-request and will return a JSON result. The ```describe.xsjs``` gives back a list of all properties (attributes, outgoing associations, abstract) which are available in the database. With the ```enrich.xsjs``` one can retrieve the actual information stored in the database, with an optional filter if one is only interested in certain properties of an entity.
 
-####Entity Enrichment
+#### Entity Enrichment
 
 `describe.xsjs?query=Apple`
 
@@ -149,7 +149,7 @@ The API for semantic enrichment consists of two xsjs files: ```describe.xsjs``` 
 
 
 
-###Entity Disambiguation with Ranking
+### Entity Disambiguation with Ranking
 
 For entity disambiguation there is ```disambiguate.xsjs``` Again, the API takes a GET-request and returns the result in JSON format.
 
@@ -208,7 +208,7 @@ Category mode
 `{"types": [{"name":"Company","score":0.9681761690228368},...]}`
 
 
-###Schema Matching
+### Schema Matching
 
 The ```matchTables.xsjs``` takes the cell values of two tables as JSON via POST and returns the matched columns with a score and suggested column names as JSON.
 
